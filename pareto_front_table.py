@@ -19,6 +19,14 @@ pareto_front_df_pool = pd.DataFrame()
 pareto_anti_front_df_stream = pd.DataFrame()
 pareto_anti_front_df_pool = pd.DataFrame()
 
+strategies=["RND", "MAX", "DIFF", "ENTROPY", "KS", "KL", "WS", "JS", "CHEBY", "EUCLID", "MANHAT"]
+
+# ensure all strategies are contained in the subframes
+pareto_front_df_stream = pareto_front_df_stream.reindex(strategies)
+pareto_front_df_pool = pareto_front_df_pool.reindex(strategies)
+pareto_anti_front_df_stream = pareto_anti_front_df_stream.reindex(strategies)
+pareto_anti_front_df_pool = pareto_anti_front_df_pool.reindex(strategies)
+        
 for name in ["TOR", "VPN","IOT","IDS"]:
     if name == "TOR":
         test_size = 0.9
@@ -35,7 +43,6 @@ for name in ["TOR", "VPN","IOT","IDS"]:
             yaxlabel = "F1-score (micro)"
         for self_train in [False]:
             df_list =[]
-            strategies=["RND", "MAX", "DIFF", "ENTROPY", "KS", "KL", "WS", "JS", "CHEBY", "EUCLID", "MANHAT"]
             for strategy in strategies: 
                 for threshold in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
                     for modus in ["stream", "pool"]:
@@ -121,13 +128,6 @@ for name in ["TOR", "VPN","IOT","IDS"]:
             pareto_anti_front_df_stream[name + "_stream"] = pd.Series(anti_paretoset_strats[(anti_paretoset_strats.modus == "stream") & (anti_paretoset_strats.cumulativerelayeddec > 0)]["strategy"].value_counts())
             pareto_anti_front_df_pool[name + "_pool"] = pd.Series(anti_paretoset_strats[(anti_paretoset_strats.modus == "pool") & (anti_paretoset_strats.cumulativerelayeddec > 0)]["strategy"].value_counts())
                    
-
-# ensure all strategies are contained in the subframes
-pareto_front_df_stream = pareto_front_df_stream.reindex(strategies)
-pareto_front_df_pool = pareto_front_df_pool.reindex(strategies)
-pareto_anti_front_df_stream = pareto_anti_front_df_stream.reindex(strategies)
-pareto_anti_front_df_pool = pareto_anti_front_df_pool.reindex(strategies)
-        
 combined_df = pd.DataFrame() # merge all subframes
 
 # put front and anti-front in one cell for stream-based
