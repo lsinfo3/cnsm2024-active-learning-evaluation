@@ -48,7 +48,7 @@ for name in ["TOR", "VPN","IOT","IDS"]:
                     for modus in ["stream", "pool"]:
                         #print(modus)
                         try:
-                            results_df = pd.read_csv("results\\"+name+'_'+str(threshold)+'_'+strategy+'_'+str(test_size)+'_'+modus+'_25.csv')
+                            results_df = pd.read_csv("results_v2\\"+name+'_'+str(threshold)+'_'+strategy+'_'+str(test_size)+'_'+modus+'_25.csv')
                             df_list.append(results_df)
                         except:
                             continue
