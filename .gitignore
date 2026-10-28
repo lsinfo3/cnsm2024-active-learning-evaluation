@@ -1,0 +1,9 @@
+# exclude result folders as they are included as .zip
+results_v2/
+results_CNSM2024/
+
+# to be clean
+**/__pycache__/
+*_v1/
+*v1*
+*.tex
